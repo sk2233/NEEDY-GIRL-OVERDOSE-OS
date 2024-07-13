@@ -1,0 +1,49 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) 启动",
+            "type": "cppdbg",
+            "request": "launch",
+            // 最终程序位置
+            "program": "${workspaceRoot}/build/source/boot/boot.elf",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "x86_64-elf-gdb",
+            "miDebuggerServerAddress": "127.0.0.1:1234",
+            "targetArchitecture": "x86",
+            "stopAtConnect": true,
+            "customLaunchSetupCommands": [],
+            // 初始化设置
+            "setupCommands": [
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "将反汇编风格设置为 Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            // gdb连接后的设置 加载符号表方便调试这里使用的是内存地址，最后运行直到程序入口忽略BOIS调试
+            "postRemoteConnectCommands": [
+                {
+                    "description": "加载boot符号文件",
+                    "text": "-file-symbol-file ./build/source/boot/boot.elf",
+                    "ignoreFailures": false
+                },
+                {
+                    "description": "运行到程序入口0x7c00",
+                    "text": "-exec-until *0x7c00",
+                    "ignoreFailures": false
+                }
+            ]
+        }
+    ]
+}
