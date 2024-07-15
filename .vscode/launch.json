@@ -39,6 +39,11 @@
                     "ignoreFailures": false
                 },
                 {
+                    "description": "加载kernel符号文件",
+                    "text": "add-symbol-file ./build/source/kernel/kernel.elf 0x10000",
+                    "ignoreFailures": false
+                },
+                {
                     "description": "运行到程序入口0x7c00",
                     "text": "-exec-until *0x7c00",
                     "ignoreFailures": false

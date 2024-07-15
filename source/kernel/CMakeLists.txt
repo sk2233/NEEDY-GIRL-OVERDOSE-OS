@@ -1,7 +1,7 @@
 project(kernel LANGUAGES C)
 
 # 使用自定义的链接器  -Ttext 指定所处的内存地址
-set(CMAKE_EXE_LINKER_FLAGS "-m elf_i386 -Ttext=0x8000")
+set(CMAKE_EXE_LINKER_FLAGS "-m elf_i386 -Ttext=0x10000")
 set(CMAKE_C_LINK_EXECUTABLE "${LINKER_TOOL} <OBJECTS> ${CMAKE_EXE_LINKER_FLAGS} -o ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.elf")
 
 # 将所有的汇编、C文件加入工程

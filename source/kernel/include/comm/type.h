@@ -9,9 +9,9 @@ typedef char int8_t;
 typedef short int16_t;
 typedef long int32_t;
 
+typedef int bool_t;
+
 #define TRUE 1
 #define FALSE 0
-
-typedef int bool_t;
 
 #endif

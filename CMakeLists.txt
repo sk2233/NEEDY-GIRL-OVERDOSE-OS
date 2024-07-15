@@ -29,7 +29,7 @@ enable_language(ASM)
 
 # 头文件搜索路径
  include_directories(
-    ${PROJECT_SOURCE_DIR}/source/kernel/comm
+         source/kernel/include
  )
 
 # 底层的若干子项目：含内核及应用程序

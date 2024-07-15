@@ -1,7 +1,551 @@
 #include "kernel.h"
+// 注意汇编里面不能引入 typedef 这种高级语法
 
 	// 32位保护模式下的代码
-	.globl start
+    .text
+	.globl _start
 	.code32
-start:
+_start:
+    movl	$0x0,%ebp			 //
+    movl	$(stack_top),%esp    //
 	call kernel_main
+
+spin:
+    jmp	spin
+
+    .data
+    .p2align	PG_SHIFT		// 强制对齐
+    .globl		stack_btm
+stack_btm:    // 为栈分配空间
+    .space		STACK_SIZE
+    .globl		stack_top
+stack_top:
+
+    .globl __trapret
+__trapret:
+    popal
+    popl %gs
+    popl %fs
+    popl %es
+    popl %ds
+    addl $0x8, %esp
+    iret
+
+// 使用宏设定所有中断处理函数
+TRAP_HANDLER_NO_CODE(handler0, 0)
+TRAP_HANDLER_NO_CODE(handler1, 1)
+TRAP_HANDLER_NO_CODE(handler2, 2)
+TRAP_HANDLER_NO_CODE(handler3, 3)
+TRAP_HANDLER_NO_CODE(handler4, 4)
+TRAP_HANDLER_NO_CODE(handler5, 5)
+TRAP_HANDLER_NO_CODE(handler6, 6)
+TRAP_HANDLER_NO_CODE(handler7, 7)
+TRAP_HANDLER(handler8, 8)
+TRAP_HANDLER_NO_CODE(handler9, 9)
+TRAP_HANDLER(handler10, 10)
+TRAP_HANDLER(handler11, 11)
+TRAP_HANDLER(handler12, 12)
+TRAP_HANDLER(handler13, 13)
+TRAP_HANDLER(handler14, 14)
+TRAP_HANDLER_NO_CODE(handler15, 15)
+TRAP_HANDLER_NO_CODE(handler16, 16)
+TRAP_HANDLER_NO_CODE(handler17, 17)
+TRAP_HANDLER_NO_CODE(handler18, 18)
+TRAP_HANDLER_NO_CODE(handler19, 19)
+TRAP_HANDLER_NO_CODE(handler20, 20)
+TRAP_HANDLER_NO_CODE(handler21, 21)
+TRAP_HANDLER_NO_CODE(handler22, 22)
+TRAP_HANDLER_NO_CODE(handler23, 23)
+TRAP_HANDLER_NO_CODE(handler24, 24)
+TRAP_HANDLER_NO_CODE(handler25, 25)
+TRAP_HANDLER_NO_CODE(handler26, 26)
+TRAP_HANDLER_NO_CODE(handler27, 27)
+TRAP_HANDLER_NO_CODE(handler28, 28)
+TRAP_HANDLER_NO_CODE(handler29, 29)
+TRAP_HANDLER_NO_CODE(handler30, 30)
+TRAP_HANDLER_NO_CODE(handler31, 31)
+TRAP_HANDLER_NO_CODE(handler32, 32)
+TRAP_HANDLER_NO_CODE(handler33, 33)
+TRAP_HANDLER_NO_CODE(handler34, 34)
+TRAP_HANDLER_NO_CODE(handler35, 35)
+TRAP_HANDLER_NO_CODE(handler36, 36)
+TRAP_HANDLER_NO_CODE(handler37, 37)
+TRAP_HANDLER_NO_CODE(handler38, 38)
+TRAP_HANDLER_NO_CODE(handler39, 39)
+TRAP_HANDLER_NO_CODE(handler40, 40)
+TRAP_HANDLER_NO_CODE(handler41, 41)
+TRAP_HANDLER_NO_CODE(handler42, 42)
+TRAP_HANDLER_NO_CODE(handler43, 43)
+TRAP_HANDLER_NO_CODE(handler44, 44)
+TRAP_HANDLER_NO_CODE(handler45, 45)
+TRAP_HANDLER_NO_CODE(handler46, 46)
+TRAP_HANDLER_NO_CODE(handler47, 47)
+TRAP_HANDLER_NO_CODE(handler48, 48)
+TRAP_HANDLER_NO_CODE(handler49, 49)
+TRAP_HANDLER_NO_CODE(handler50, 50)
+TRAP_HANDLER_NO_CODE(handler51, 51)
+TRAP_HANDLER_NO_CODE(handler52, 52)
+TRAP_HANDLER_NO_CODE(handler53, 53)
+TRAP_HANDLER_NO_CODE(handler54, 54)
+TRAP_HANDLER_NO_CODE(handler55, 55)
+TRAP_HANDLER_NO_CODE(handler56, 56)
+TRAP_HANDLER_NO_CODE(handler57, 57)
+TRAP_HANDLER_NO_CODE(handler58, 58)
+TRAP_HANDLER_NO_CODE(handler59, 59)
+TRAP_HANDLER_NO_CODE(handler60, 60)
+TRAP_HANDLER_NO_CODE(handler61, 61)
+TRAP_HANDLER_NO_CODE(handler62, 62)
+TRAP_HANDLER_NO_CODE(handler63, 63)
+TRAP_HANDLER_NO_CODE(handler64, 64)
+TRAP_HANDLER_NO_CODE(handler65, 65)
+TRAP_HANDLER_NO_CODE(handler66, 66)
+TRAP_HANDLER_NO_CODE(handler67, 67)
+TRAP_HANDLER_NO_CODE(handler68, 68)
+TRAP_HANDLER_NO_CODE(handler69, 69)
+TRAP_HANDLER_NO_CODE(handler70, 70)
+TRAP_HANDLER_NO_CODE(handler71, 71)
+TRAP_HANDLER_NO_CODE(handler72, 72)
+TRAP_HANDLER_NO_CODE(handler73, 73)
+TRAP_HANDLER_NO_CODE(handler74, 74)
+TRAP_HANDLER_NO_CODE(handler75, 75)
+TRAP_HANDLER_NO_CODE(handler76, 76)
+TRAP_HANDLER_NO_CODE(handler77, 77)
+TRAP_HANDLER_NO_CODE(handler78, 78)
+TRAP_HANDLER_NO_CODE(handler79, 79)
+TRAP_HANDLER_NO_CODE(handler80, 80)
+TRAP_HANDLER_NO_CODE(handler81, 81)
+TRAP_HANDLER_NO_CODE(handler82, 82)
+TRAP_HANDLER_NO_CODE(handler83, 83)
+TRAP_HANDLER_NO_CODE(handler84, 84)
+TRAP_HANDLER_NO_CODE(handler85, 85)
+TRAP_HANDLER_NO_CODE(handler86, 86)
+TRAP_HANDLER_NO_CODE(handler87, 87)
+TRAP_HANDLER_NO_CODE(handler88, 88)
+TRAP_HANDLER_NO_CODE(handler89, 89)
+TRAP_HANDLER_NO_CODE(handler90, 90)
+TRAP_HANDLER_NO_CODE(handler91, 91)
+TRAP_HANDLER_NO_CODE(handler92, 92)
+TRAP_HANDLER_NO_CODE(handler93, 93)
+TRAP_HANDLER_NO_CODE(handler94, 94)
+TRAP_HANDLER_NO_CODE(handler95, 95)
+TRAP_HANDLER_NO_CODE(handler96, 96)
+TRAP_HANDLER_NO_CODE(handler97, 97)
+TRAP_HANDLER_NO_CODE(handler98, 98)
+TRAP_HANDLER_NO_CODE(handler99, 99)
+TRAP_HANDLER_NO_CODE(handler100, 100)
+TRAP_HANDLER_NO_CODE(handler101, 101)
+TRAP_HANDLER_NO_CODE(handler102, 102)
+TRAP_HANDLER_NO_CODE(handler103, 103)
+TRAP_HANDLER_NO_CODE(handler104, 104)
+TRAP_HANDLER_NO_CODE(handler105, 105)
+TRAP_HANDLER_NO_CODE(handler106, 106)
+TRAP_HANDLER_NO_CODE(handler107, 107)
+TRAP_HANDLER_NO_CODE(handler108, 108)
+TRAP_HANDLER_NO_CODE(handler109, 109)
+TRAP_HANDLER_NO_CODE(handler110, 110)
+TRAP_HANDLER_NO_CODE(handler111, 111)
+TRAP_HANDLER_NO_CODE(handler112, 112)
+TRAP_HANDLER_NO_CODE(handler113, 113)
+TRAP_HANDLER_NO_CODE(handler114, 114)
+TRAP_HANDLER_NO_CODE(handler115, 115)
+TRAP_HANDLER_NO_CODE(handler116, 116)
+TRAP_HANDLER_NO_CODE(handler117, 117)
+TRAP_HANDLER_NO_CODE(handler118, 118)
+TRAP_HANDLER_NO_CODE(handler119, 119)
+TRAP_HANDLER_NO_CODE(handler120, 120)
+TRAP_HANDLER_NO_CODE(handler121, 121)
+TRAP_HANDLER_NO_CODE(handler122, 122)
+TRAP_HANDLER_NO_CODE(handler123, 123)
+TRAP_HANDLER_NO_CODE(handler124, 124)
+TRAP_HANDLER_NO_CODE(handler125, 125)
+TRAP_HANDLER_NO_CODE(handler126, 126)
+TRAP_HANDLER_NO_CODE(handler127, 127)
+TRAP_HANDLER_NO_CODE(handler128, 128)
+TRAP_HANDLER_NO_CODE(handler129, 129)
+TRAP_HANDLER_NO_CODE(handler130, 130)
+TRAP_HANDLER_NO_CODE(handler131, 131)
+TRAP_HANDLER_NO_CODE(handler132, 132)
+TRAP_HANDLER_NO_CODE(handler133, 133)
+TRAP_HANDLER_NO_CODE(handler134, 134)
+TRAP_HANDLER_NO_CODE(handler135, 135)
+TRAP_HANDLER_NO_CODE(handler136, 136)
+TRAP_HANDLER_NO_CODE(handler137, 137)
+TRAP_HANDLER_NO_CODE(handler138, 138)
+TRAP_HANDLER_NO_CODE(handler139, 139)
+TRAP_HANDLER_NO_CODE(handler140, 140)
+TRAP_HANDLER_NO_CODE(handler141, 141)
+TRAP_HANDLER_NO_CODE(handler142, 142)
+TRAP_HANDLER_NO_CODE(handler143, 143)
+TRAP_HANDLER_NO_CODE(handler144, 144)
+TRAP_HANDLER_NO_CODE(handler145, 145)
+TRAP_HANDLER_NO_CODE(handler146, 146)
+TRAP_HANDLER_NO_CODE(handler147, 147)
+TRAP_HANDLER_NO_CODE(handler148, 148)
+TRAP_HANDLER_NO_CODE(handler149, 149)
+TRAP_HANDLER_NO_CODE(handler150, 150)
+TRAP_HANDLER_NO_CODE(handler151, 151)
+TRAP_HANDLER_NO_CODE(handler152, 152)
+TRAP_HANDLER_NO_CODE(handler153, 153)
+TRAP_HANDLER_NO_CODE(handler154, 154)
+TRAP_HANDLER_NO_CODE(handler155, 155)
+TRAP_HANDLER_NO_CODE(handler156, 156)
+TRAP_HANDLER_NO_CODE(handler157, 157)
+TRAP_HANDLER_NO_CODE(handler158, 158)
+TRAP_HANDLER_NO_CODE(handler159, 159)
+TRAP_HANDLER_NO_CODE(handler160, 160)
+TRAP_HANDLER_NO_CODE(handler161, 161)
+TRAP_HANDLER_NO_CODE(handler162, 162)
+TRAP_HANDLER_NO_CODE(handler163, 163)
+TRAP_HANDLER_NO_CODE(handler164, 164)
+TRAP_HANDLER_NO_CODE(handler165, 165)
+TRAP_HANDLER_NO_CODE(handler166, 166)
+TRAP_HANDLER_NO_CODE(handler167, 167)
+TRAP_HANDLER_NO_CODE(handler168, 168)
+TRAP_HANDLER_NO_CODE(handler169, 169)
+TRAP_HANDLER_NO_CODE(handler170, 170)
+TRAP_HANDLER_NO_CODE(handler171, 171)
+TRAP_HANDLER_NO_CODE(handler172, 172)
+TRAP_HANDLER_NO_CODE(handler173, 173)
+TRAP_HANDLER_NO_CODE(handler174, 174)
+TRAP_HANDLER_NO_CODE(handler175, 175)
+TRAP_HANDLER_NO_CODE(handler176, 176)
+TRAP_HANDLER_NO_CODE(handler177, 177)
+TRAP_HANDLER_NO_CODE(handler178, 178)
+TRAP_HANDLER_NO_CODE(handler179, 179)
+TRAP_HANDLER_NO_CODE(handler180, 180)
+TRAP_HANDLER_NO_CODE(handler181, 181)
+TRAP_HANDLER_NO_CODE(handler182, 182)
+TRAP_HANDLER_NO_CODE(handler183, 183)
+TRAP_HANDLER_NO_CODE(handler184, 184)
+TRAP_HANDLER_NO_CODE(handler185, 185)
+TRAP_HANDLER_NO_CODE(handler186, 186)
+TRAP_HANDLER_NO_CODE(handler187, 187)
+TRAP_HANDLER_NO_CODE(handler188, 188)
+TRAP_HANDLER_NO_CODE(handler189, 189)
+TRAP_HANDLER_NO_CODE(handler190, 190)
+TRAP_HANDLER_NO_CODE(handler191, 191)
+TRAP_HANDLER_NO_CODE(handler192, 192)
+TRAP_HANDLER_NO_CODE(handler193, 193)
+TRAP_HANDLER_NO_CODE(handler194, 194)
+TRAP_HANDLER_NO_CODE(handler195, 195)
+TRAP_HANDLER_NO_CODE(handler196, 196)
+TRAP_HANDLER_NO_CODE(handler197, 197)
+TRAP_HANDLER_NO_CODE(handler198, 198)
+TRAP_HANDLER_NO_CODE(handler199, 199)
+TRAP_HANDLER_NO_CODE(handler200, 200)
+TRAP_HANDLER_NO_CODE(handler201, 201)
+TRAP_HANDLER_NO_CODE(handler202, 202)
+TRAP_HANDLER_NO_CODE(handler203, 203)
+TRAP_HANDLER_NO_CODE(handler204, 204)
+TRAP_HANDLER_NO_CODE(handler205, 205)
+TRAP_HANDLER_NO_CODE(handler206, 206)
+TRAP_HANDLER_NO_CODE(handler207, 207)
+TRAP_HANDLER_NO_CODE(handler208, 208)
+TRAP_HANDLER_NO_CODE(handler209, 209)
+TRAP_HANDLER_NO_CODE(handler210, 210)
+TRAP_HANDLER_NO_CODE(handler211, 211)
+TRAP_HANDLER_NO_CODE(handler212, 212)
+TRAP_HANDLER_NO_CODE(handler213, 213)
+TRAP_HANDLER_NO_CODE(handler214, 214)
+TRAP_HANDLER_NO_CODE(handler215, 215)
+TRAP_HANDLER_NO_CODE(handler216, 216)
+TRAP_HANDLER_NO_CODE(handler217, 217)
+TRAP_HANDLER_NO_CODE(handler218, 218)
+TRAP_HANDLER_NO_CODE(handler219, 219)
+TRAP_HANDLER_NO_CODE(handler220, 220)
+TRAP_HANDLER_NO_CODE(handler221, 221)
+TRAP_HANDLER_NO_CODE(handler222, 222)
+TRAP_HANDLER_NO_CODE(handler223, 223)
+TRAP_HANDLER_NO_CODE(handler224, 224)
+TRAP_HANDLER_NO_CODE(handler225, 225)
+TRAP_HANDLER_NO_CODE(handler226, 226)
+TRAP_HANDLER_NO_CODE(handler227, 227)
+TRAP_HANDLER_NO_CODE(handler228, 228)
+TRAP_HANDLER_NO_CODE(handler229, 229)
+TRAP_HANDLER_NO_CODE(handler230, 230)
+TRAP_HANDLER_NO_CODE(handler231, 231)
+TRAP_HANDLER_NO_CODE(handler232, 232)
+TRAP_HANDLER_NO_CODE(handler233, 233)
+TRAP_HANDLER_NO_CODE(handler234, 234)
+TRAP_HANDLER_NO_CODE(handler235, 235)
+TRAP_HANDLER_NO_CODE(handler236, 236)
+TRAP_HANDLER_NO_CODE(handler237, 237)
+TRAP_HANDLER_NO_CODE(handler238, 238)
+TRAP_HANDLER_NO_CODE(handler239, 239)
+TRAP_HANDLER_NO_CODE(handler240, 240)
+TRAP_HANDLER_NO_CODE(handler241, 241)
+TRAP_HANDLER_NO_CODE(handler242, 242)
+TRAP_HANDLER_NO_CODE(handler243, 243)
+TRAP_HANDLER_NO_CODE(handler244, 244)
+TRAP_HANDLER_NO_CODE(handler245, 245)
+TRAP_HANDLER_NO_CODE(handler246, 246)
+TRAP_HANDLER_NO_CODE(handler247, 247)
+TRAP_HANDLER_NO_CODE(handler248, 248)
+TRAP_HANDLER_NO_CODE(handler249, 249)
+TRAP_HANDLER_NO_CODE(handler250, 250)
+TRAP_HANDLER_NO_CODE(handler251, 251)
+TRAP_HANDLER_NO_CODE(handler252, 252)
+TRAP_HANDLER_NO_CODE(handler253, 253)
+TRAP_HANDLER_NO_CODE(handler254, 254)
+TRAP_HANDLER_NO_CODE(handler255, 255)
+
+    .data
+    .globl idt_table
+idt_table:
+// 上面的宏展开后会有下面这些标号，这里只是收集一下，方便后面使用
+    .long handler0
+    .long handler1
+    .long handler2
+    .long handler3
+    .long handler4
+    .long handler5
+    .long handler6
+    .long handler7
+    .long handler8
+    .long handler9
+    .long handler10
+    .long handler11
+    .long handler12
+    .long handler13
+    .long handler14
+    .long handler15
+    .long handler16
+    .long handler17
+    .long handler18
+    .long handler19
+    .long handler20
+    .long handler21
+    .long handler22
+    .long handler23
+    .long handler24
+    .long handler25
+    .long handler26
+    .long handler27
+    .long handler28
+    .long handler29
+    .long handler30
+    .long handler31
+    .long handler32
+    .long handler33
+    .long handler34
+    .long handler35
+    .long handler36
+    .long handler37
+    .long handler38
+    .long handler39
+    .long handler40
+    .long handler41
+    .long handler42
+    .long handler43
+    .long handler44
+    .long handler45
+    .long handler46
+    .long handler47
+    .long handler48
+    .long handler49
+    .long handler50
+    .long handler51
+    .long handler52
+    .long handler53
+    .long handler54
+    .long handler55
+    .long handler56
+    .long handler57
+    .long handler58
+    .long handler59
+    .long handler60
+    .long handler61
+    .long handler62
+    .long handler63
+    .long handler64
+    .long handler65
+    .long handler66
+    .long handler67
+    .long handler68
+    .long handler69
+    .long handler70
+    .long handler71
+    .long handler72
+    .long handler73
+    .long handler74
+    .long handler75
+    .long handler76
+    .long handler77
+    .long handler78
+    .long handler79
+    .long handler80
+    .long handler81
+    .long handler82
+    .long handler83
+    .long handler84
+    .long handler85
+    .long handler86
+    .long handler87
+    .long handler88
+    .long handler89
+    .long handler90
+    .long handler91
+    .long handler92
+    .long handler93
+    .long handler94
+    .long handler95
+    .long handler96
+    .long handler97
+    .long handler98
+    .long handler99
+    .long handler100
+    .long handler101
+    .long handler102
+    .long handler103
+    .long handler104
+    .long handler105
+    .long handler106
+    .long handler107
+    .long handler108
+    .long handler109
+    .long handler110
+    .long handler111
+    .long handler112
+    .long handler113
+    .long handler114
+    .long handler115
+    .long handler116
+    .long handler117
+    .long handler118
+    .long handler119
+    .long handler120
+    .long handler121
+    .long handler122
+    .long handler123
+    .long handler124
+    .long handler125
+    .long handler126
+    .long handler127
+    .long handler128
+    .long handler129
+    .long handler130
+    .long handler131
+    .long handler132
+    .long handler133
+    .long handler134
+    .long handler135
+    .long handler136
+    .long handler137
+    .long handler138
+    .long handler139
+    .long handler140
+    .long handler141
+    .long handler142
+    .long handler143
+    .long handler144
+    .long handler145
+    .long handler146
+    .long handler147
+    .long handler148
+    .long handler149
+    .long handler150
+    .long handler151
+    .long handler152
+    .long handler153
+    .long handler154
+    .long handler155
+    .long handler156
+    .long handler157
+    .long handler158
+    .long handler159
+    .long handler160
+    .long handler161
+    .long handler162
+    .long handler163
+    .long handler164
+    .long handler165
+    .long handler166
+    .long handler167
+    .long handler168
+    .long handler169
+    .long handler170
+    .long handler171
+    .long handler172
+    .long handler173
+    .long handler174
+    .long handler175
+    .long handler176
+    .long handler177
+    .long handler178
+    .long handler179
+    .long handler180
+    .long handler181
+    .long handler182
+    .long handler183
+    .long handler184
+    .long handler185
+    .long handler186
+    .long handler187
+    .long handler188
+    .long handler189
+    .long handler190
+    .long handler191
+    .long handler192
+    .long handler193
+    .long handler194
+    .long handler195
+    .long handler196
+    .long handler197
+    .long handler198
+    .long handler199
+    .long handler200
+    .long handler201
+    .long handler202
+    .long handler203
+    .long handler204
+    .long handler205
+    .long handler206
+    .long handler207
+    .long handler208
+    .long handler209
+    .long handler210
+    .long handler211
+    .long handler212
+    .long handler213
+    .long handler214
+    .long handler215
+    .long handler216
+    .long handler217
+    .long handler218
+    .long handler219
+    .long handler220
+    .long handler221
+    .long handler222
+    .long handler223
+    .long handler224
+    .long handler225
+    .long handler226
+    .long handler227
+    .long handler228
+    .long handler229
+    .long handler230
+    .long handler231
+    .long handler232
+    .long handler233
+    .long handler234
+    .long handler235
+    .long handler236
+    .long handler237
+    .long handler238
+    .long handler239
+    .long handler240
+    .long handler241
+    .long handler242
+    .long handler243
+    .long handler244
+    .long handler245
+    .long handler246
+    .long handler247
+    .long handler248
+    .long handler249
+    .long handler250
+    .long handler251
+    .long handler252
+    .long handler253
+    .long handler254
+    .long handler255

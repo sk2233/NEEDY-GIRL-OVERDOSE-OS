@@ -119,13 +119,4 @@ static inline void write_eflags (uint32_t eflags) {
     __asm__ __volatile__("pushl %%eax\n\tpopfl"::"a"(eflags));
 }
 
-static inline void insl(uint32_t port, void *addr, int cnt){
-    __asm__ __volatile__ (
-            "cld;"
-            "repne; insl;"
-            : "=D" (addr), "=c" (cnt)
-            : "d" (port), "0" (addr), "1" (cnt)
-            : "memory", "cc");
-}
-
 #endif
