@@ -23,7 +23,7 @@ int parse_num(char *dst,int num,int base){
     return len;
 }
 
-int str_len(const char *str){
+uint32_t str_len(const char *str){
     int len=0;
     while (*str){
         str++;
@@ -52,7 +52,7 @@ void str_fmt(char *dst,const char *fmt,va_list args){
                     break;
                 case 's':
                     str = va_arg(args, char *);
-                    num = str_len(str);
+                    num = (int)str_len(str);
                     mem_copy(dst,str,num);
                     dst+=num;
                     break;
@@ -70,4 +70,15 @@ void str_fmt(char *dst,const char *fmt,va_list args){
         }
         idx++;
     }
+}
+
+bool_t str_equal(const char *str1,const char *str2){
+    while (*str1 && *str2){
+        if(*str1!=*str2){
+            return FALSE;
+        }
+        str1++;
+        str2++;
+    }
+    return (!*str1)&&(!*str2);
 }

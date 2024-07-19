@@ -10,6 +10,7 @@
 #include "comm/x86.h"
 #include "sys/task.h"
 #include "sys/file.h"
+#include "gui/gui.h"
 
 void test_task(){
     uint32_t num=0;
@@ -26,6 +27,7 @@ void kernel_main() {
     kbd_init();
     clock_init();
     file_init();
+    gui_init();
     sti(); // 打开中断
     // 暂时不使用多进程
 //    task_init();

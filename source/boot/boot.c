@@ -21,7 +21,6 @@ void read_sector(uint16_t *dst){
     outb(0x1F5, (uint8_t) (SECTOR_OFFSET >> 16));		// LBA参数的16~23位
 
     outb(0x1F7, 0x24);
-
     // 读取并将数据写入到缓存中
     for (int i = 0; i < SECTOR_COUNT; ++i) {
         wait_disk(); // 每获取一个扇区的数据必须等一下

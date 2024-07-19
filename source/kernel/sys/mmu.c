@@ -71,11 +71,15 @@ void *page_alloc(uint32_t count){
                 next->next->pre=next;
             }
             irq_restore(flag);
-            return (void *)node->start;
+            void *res = (void *)node->start;
+            mem_set(res,0,size);
+            return res;
         } else if(node->size==size){
             node->used=TRUE;
             irq_restore(flag);
-            return (void *)node->start;
+            void *res = (void *)node->start;
+            mem_set(res,0,size);
+            return res;
         }
         node=node->next;
     }
