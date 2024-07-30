@@ -1,5 +1,6 @@
 # 模仿《直播女孩重度依赖》的界面写的操作系统
-![img.png](img.png)
+![img.png](img.png)<br>
+视频演示：https://www.bilibili.com/video/BV183v1edExQ
 # 前置准备
 因为 github 不允许上传大文件，会对磁盘文件，系统使用的图片资源进行打包。下载完毕项目后需要解压 image.zip 文件。<br>
 ![img_1.png](img_1.png)<br>
