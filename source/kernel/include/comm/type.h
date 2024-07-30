@@ -13,5 +13,12 @@ typedef int bool_t;
 
 #define TRUE 1
 #define FALSE 0
+#define NULL 0
+
+typedef struct rgb{
+    uint8_t b;
+    uint8_t g;
+    uint8_t r;
+}rgb_t;
 
 #endif

@@ -30,6 +30,11 @@ typedef struct file{
     bool_t dirty;
 }file_t;
 
+//typedef struct img_hdr{
+//    uint32_t count;
+//    uint32_t data[0xFF];
+//}img_hdr_t;
+
 void file_init();
 
 file_t *file_open(const char *name,bool_t create); // 打开指定文件,并是否在不存在时进行创建
@@ -40,5 +45,7 @@ void file_seek(file_t *file,uint32_t pos); // 绝对定位
 void file_flush(file_t *file);
 void file_mv(file_t *file,const char *name);
 void file_rm(file_t *file);
+
+void read_disk(uint32_t sector,uint32_t count,void *dst);
 
 #endif

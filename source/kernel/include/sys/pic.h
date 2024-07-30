@@ -14,6 +14,7 @@
 
 #define PIC_TIMER               0
 #define PIC_KBD                 1
+#define PIC_MOUSE               12
 
 #define PIC_FLAG_IF           0x00000200  // 中断标志位
 

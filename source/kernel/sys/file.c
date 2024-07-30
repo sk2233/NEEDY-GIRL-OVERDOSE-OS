@@ -67,6 +67,50 @@ void init_file_sys(){ // 恢复文件系统
     mem_free(temp);
 }
 
+//typedef struct img0{
+//    char name[16];
+//    uint32_t w;
+//    uint32_t h;
+//}img0_t;
+//
+//void load_img(uint32_t offset) {
+//    uint32_t addr=FILE_IMG_ADDR+offset;
+//    void *buff= page_alloc(16);
+//    uint32_t sector=addr/(FILE_CHUNK_SIZE*16)*FILE_CHUNK_COUNT*16;
+//    read_disk(sector,FILE_CHUNK_COUNT*16,buff);
+//    img0_t *img= buff+addr%(FILE_CHUNK_SIZE*16);
+//    uint32_t size=img->w*img->h*3+4+4;
+//    file_t *file= file_open(img->name,TRUE);
+//
+//    offset = addr%(FILE_CHUNK_SIZE*16)+16;
+//    uint32_t last=FILE_CHUNK_SIZE*16-offset;
+//    sector+=FILE_CHUNK_COUNT*16;
+//    while (size>0){
+//        if(size>last){
+//            file_write(file,buff+offset,last);
+//            size-=last;
+//        } else{
+//            file_write(file,buff+offset,size);
+//            size=0;
+//        }
+//        read_disk(sector,FILE_CHUNK_COUNT*16,buff);
+//        sector+=FILE_CHUNK_COUNT*16;
+//        last=FILE_CHUNK_SIZE*16;
+//        offset=0;
+//    }
+//    file_close(file);
+//    mem_free(buff);
+//}
+//
+//void load_imgs(){
+//    img_hdr_t *img_hdr= page_alloc(1);
+//    read_disk(FILE_IMG_ADDR/FILE_SECTOR_SIZE,FILE_CHUNK_COUNT,img_hdr);
+//    for (int i = 0; i < img_hdr->count; ++i) {
+//        load_img(img_hdr->data[i]);
+//    }
+//    mem_free(img_hdr);
+//}
+
 // 1个 4k 块 立即加载
 static file_item_t file_items[FILE_ITEM_COUNT];
 // 32个 4k 块  延迟加载 每个存储  2048个 uint16
@@ -82,6 +126,7 @@ void file_init(){
 //    file_read(file,buff,10);
 //   file_close(file);
     // file_rm(file);
+//    load_imgs();
 }
 
 uint16_t find_empty_idx(){

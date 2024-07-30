@@ -18,3 +18,14 @@ void clock_init(){
     tick_count = 0;
     pic_enable(PIC_TIMER);
 }
+
+void clock_update(){
+    tick_count++;
+}
+
+void clock_wait(uint32_t time){
+    uint32_t dst_time=tick_count+time;
+    while (dst_time>tick_count){
+        hlt();
+    }
+}

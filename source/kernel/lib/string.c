@@ -32,6 +32,13 @@ uint32_t str_len(const char *str){
     return len;
 }
 
+void str_sub(const char *src,char *dst,int start,int end){
+    for (int i = start; i < end; ++i) {
+        *dst++=*(src+i);
+    }
+    *dst='\x0';
+}
+
 void str_fmt(char *dst,const char *fmt,va_list args){
     int idx=0;
     bool_t is_fmt=FALSE;
