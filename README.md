@@ -1,3 +1,4 @@
+![img.png](img.png)
 # 前置准备
 ```shell
 brew install x86_64-elf-gcc
